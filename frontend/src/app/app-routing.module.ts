@@ -14,6 +14,9 @@ const routes: Routes = [
   },
   {
     path: "material/:id", component: MaterialPageComponent
+  },
+  {
+    path: "**", redirectTo: ""
   }
 ];
 
