@@ -12,3 +12,9 @@ services:
       - COUCHDB_PASSWORD=password
     ports:
       - "5984:5984"
+  
+  api:
+    image: eduma_api
+    ports:
+      - "8080:8080"
+    restart: on-failure

@@ -3,7 +3,7 @@ all: build run
 run:
 	docker-compose up
 
-build: webserver
+build: webserver api
 
 frontend:
 	cd frontend && ng build
