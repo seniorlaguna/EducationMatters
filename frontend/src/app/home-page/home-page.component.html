@@ -1,5 +1,5 @@
 <ul>
-    <li *ngFor="let i of [1,2,3,4,5]">Fach {{i}}</li>
+    <li *ngFor="let i of subjects">{{i.name}}</li>
 </ul>
 
 <textarea (keydown.enter)="submit()" name="" id="" cols="30" rows="10"></textarea>
