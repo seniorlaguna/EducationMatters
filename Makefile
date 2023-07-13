@@ -3,8 +3,15 @@ all: build run
 run:
 	docker-compose up
 
-build:
+build: webserver
+
+frontend:
 	cd frontend && ng build
+
+webserver: frontend
 	cp -R frontend/dist/frontend webserver/
 	cd webserver && docker build -t eduma_webserver .
 	cd webserver && rm -Rf frontend
+
+api:
+	cd api && docker build -t eduma_api .
