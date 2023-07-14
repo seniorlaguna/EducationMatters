@@ -17,8 +17,20 @@ export class ApiService {
     return this.http.get<Material>("/api/materials/"+id)
   }
 
-  search() : Observable<Material[]> {
-    return this.http.get<Material[]>("/api/search")
+  search(query: string) : Observable<Material[]> {
+    return this.http.get<Material[]>("/api/search", {
+      params: {
+        query: query
+      }
+    })
+  }
+
+  complete(text: string) : Observable<string[]> {
+    return this.http.get<string[]>("/api/complete", {
+      params: {
+        text: text
+      }
+    })
   }
 
 }

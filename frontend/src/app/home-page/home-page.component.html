@@ -2,4 +2,8 @@
     <li *ngFor="let i of subjects">{{i.name}}</li>
 </ul>
 
-<textarea (keydown.enter)="submit()" name="" id="" cols="30" rows="10"></textarea>
+<textarea (keydown.enter)="submit()" (input)="getSuggestions($event)" name="" id="" cols="30" rows="10"></textarea>
+
+<ul *ngIf="suggestions.length > 0">
+    <li *ngFor="let s of suggestions"><a href="/search?query={{s}}">{{s}}</a></li>
+</ul>

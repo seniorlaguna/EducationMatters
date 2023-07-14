@@ -1,10 +1,12 @@
-<h1>{{material?.name}}</h1>
-<img src="https://raw.githubusercontent.com/seniorlaguna/EducationMattersLibrary/main/{{material?._id}}/thumbnail.webp" height="200" alt="Materialvorschau">
-<span *ngFor="let i of material?.subjects">{{i}}</span>
-<span *ngFor="let i of material?.grades">{{i}}</span>
-<ul>
-    <li *ngFor="let i of material?.tags">{{i}}</li>
-</ul>
-<p>{{material?.description}}</p>
-<button type="button">Speichern</button>
-<button type="button">{{material?.type}}</button>
+<div *ngIf="material != undefined">
+    <h1>{{material.name}}</h1>
+    <img src="https://raw.githubusercontent.com/seniorlaguna/EducationMattersLibrary/main/{{material._id}}/thumbnail.webp" height="200" alt="Materialvorschau">
+    <span *ngFor="let i of material?.subjects">{{i}}</span>
+    <span *ngFor="let i of material?.grades">{{i}}</span>
+    <ul>
+        <li *ngFor="let i of material?.tags">{{i}}</li>
+    </ul>
+    <p>{{material.description}}</p>
+    <button type="button">Speichern</button>
+    <button type="button">{{material.type}}</button>
+</div>

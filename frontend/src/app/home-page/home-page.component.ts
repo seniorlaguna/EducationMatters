@@ -9,7 +9,9 @@ import { ApiService, Subject } from '../api.service';
 })
 export class HomePageComponent implements OnInit {
 
+  query: string = ""
   subjects: Subject[] = []
+  suggestions: string[] = []
 
   constructor(private router: Router, private api: ApiService) {}
 
@@ -20,7 +22,16 @@ export class HomePageComponent implements OnInit {
   }
 
   submit() {
-    this.router.navigate(["search"])
+    this.router.navigateByUrl(`/search?query=${this.query}`)
+  }
+
+  getSuggestions(event: Event) {
+    this.query = (event.target as any).value
+
+    this.api.complete(this.query).subscribe((suggestions) => {
+      this.suggestions = suggestions
+      console.log(suggestions)
+    })
   }
 
 }
