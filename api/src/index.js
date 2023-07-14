@@ -72,7 +72,7 @@ app.get("/complete", async (req, res) => {
                 autocomplete: {
                     prefix: text,
                     completion: {
-                        field: "name"
+                        field: "name_completion"
                     }
                 }
             }
