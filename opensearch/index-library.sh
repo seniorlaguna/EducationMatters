@@ -19,7 +19,7 @@ do
     DESCRIPTION=$(jq ".[$i].description" $COUCHDB_DATA)
 
     echo "{ \"index\": { \"_index\": \"materials\", \"_id\": $ID } }" >> $OPENSEARCH_DATA
-    echo "{ \"name\": $NAME, \"description\": $DESCRIPTION}" >> $OPENSEARCH_DATA
+    echo "{ \"name\": $NAME, \"description\": $DESCRIPTION, \"name_completion\": $NAME}" >> $OPENSEARCH_DATA
 done
 
 # Send prepared materials file to OpenSearch

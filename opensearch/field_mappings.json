@@ -2,9 +2,12 @@
   "mappings": {
     "properties": {
       "name": {
-        "type": "completion"
+        "type": "text"
       },
       "description": {
+        "type": "text"
+      },
+      "name_completion" : {
         "type": "text"
       }
     }

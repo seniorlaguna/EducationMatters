@@ -59,14 +59,23 @@ async function search() {
         index: "materials",
         body: {
             query: {
-                match_phrase_prefix: {
+                match_bool_prefix: {
                     name: {
-                        query: query
+                        query: query,
+                        fuzziness: "AUTO",
+                        max_expansions: 50,
+                        fuzzy_transpositions: true,
+                        prefix_length: 0,
+                        operator:  "or",
+                        minimum_should_match: 2,
+                        analyzer: "standard"
                     }
                 }
             }
         }
     })
+
+    console.log(result.body.hits.hits)
 }
 
 main()
