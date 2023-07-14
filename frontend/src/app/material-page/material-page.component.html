@@ -1,7 +1,7 @@
 <h1>{{material?.name}}</h1>
-<img src="https://cdn.pixabay.com/photo/2015/04/19/08/32/marguerite-729510_1280.jpg" height="200" alt="Materialvorschau">
-<span>Klassen</span>
-<span>Fächer</span>
+<img src="https://raw.githubusercontent.com/seniorlaguna/EducationMattersLibrary/main/{{material?._id}}/thumbnail.webp" height="200" alt="Materialvorschau">
+<span *ngFor="let i of material?.subjects">{{i}}</span>
+<span *ngFor="let i of material?.grades">{{i}}</span>
 <ul>
     <li *ngFor="let i of material?.tags">{{i}}</li>
 </ul>

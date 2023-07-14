@@ -18,3 +18,12 @@ services:
     ports:
       - "8080:8080"
     restart: on-failure
+  
+  opensearch:
+    image: opensearchproject/opensearch:latest
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9600:9600"
+    restart: on-failure

@@ -35,5 +35,7 @@ export interface Material {
   name: string,
   description: string,
   tags: string[],
-  type: string
+  type: string,
+  subjects: string[],
+  grades: number[]
 }
