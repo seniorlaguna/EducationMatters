@@ -7,19 +7,12 @@ import { ApiService, Subject } from '../api.service';
   templateUrl: './home-page.component.html',
   styleUrls: ['./home-page.component.css']
 })
-export class HomePageComponent implements OnInit {
+export class HomePageComponent {
 
   query: string = ""
-  subjects: Subject[] = []
   suggestions: string[] = []
 
   constructor(private router: Router, private api: ApiService) {}
-
-  ngOnInit(): void {
-      this.api.getSubjects().subscribe((subjects) => {
-        this.subjects = subjects
-      })
-  }
 
   submit() {
     this.router.navigateByUrl(`/search?query=${this.query}`)

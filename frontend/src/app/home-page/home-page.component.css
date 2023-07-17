@@ -1,0 +1,39 @@
+main {
+    align-items: center;
+}
+
+main > textarea {
+    width: 500px;
+    height: 40px;
+    outline: none;
+    border: 1px grey solid;
+    resize: none;
+    padding: 6px 20px;
+    font-size: 20px;
+}
+
+.show-suggestions {
+    border-radius: 24px 24px 0 0;
+}
+
+.no-suggestions {
+    border-radius: 24px;
+}
+
+#suggestions {
+    width: 500px;
+    background-color: lightgrey;
+}
+
+#suggestions > li {
+    height: 32px;
+    margin-left: 24px;
+    list-style-type: none;
+    align-items: center;
+}
+
+#suggestions > li > a {
+    text-decoration: none;
+    font-family: sans-serif;
+    color: black;
+}

@@ -1,6 +1,8 @@
-<p *ngIf="results.length == 0">Sorry nix gefunden</p>
-<ul *ngIf="results.length > 0">
-    <li *ngFor="let i of results">
-        <a routerLink="/material/{{i._id}}">{{i.name}}</a>
-    </li>
-</ul>
+<main class="column">
+    <p *ngIf="results.length == 0">Sorry nix gefunden</p>
+    <ul *ngIf="results.length > 0">
+        <li *ngFor="let i of results">
+            <a routerLink="/material/{{i._id}}">{{i.name}}</a>
+        </li>
+    </ul>
+</main>

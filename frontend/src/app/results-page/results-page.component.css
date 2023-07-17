@@ -1,0 +1,11 @@
+main {
+    align-items: center;
+    padding: 24px;
+}
+
+main > ul > li {
+    list-style-type: none;
+    height: 160px;
+    width: 800px;
+    background-color: #EEEEEE;
+}

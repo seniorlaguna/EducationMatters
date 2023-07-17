@@ -7,13 +7,15 @@ import { AppComponent } from './app.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ResultsPageComponent } from './results-page/results-page.component';
 import { MaterialPageComponent } from './material-page/material-page.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomePageComponent,
     ResultsPageComponent,
-    MaterialPageComponent
+    MaterialPageComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

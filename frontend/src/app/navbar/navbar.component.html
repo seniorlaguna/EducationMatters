@@ -1,0 +1,6 @@
+<nav class="row">
+    <div style="width: 200px;"></div>
+    <ul class="row">
+        <li *ngFor="let i of subjects"><a href="/search?subject={{i.name}}">{{i.name}}</a></li>
+    </ul>
+</nav>

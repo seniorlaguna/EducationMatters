@@ -1,9 +1,10 @@
-<ul>
-    <li *ngFor="let i of subjects">{{i.name}}</li>
-</ul>
+<main class="column">
 
-<textarea (keydown.enter)="submit()" (input)="getSuggestions($event)" name="" id="" cols="30" rows="10"></textarea>
+    <div style="height: 100px;"></div>
+    <textarea [className]="suggestions.length > 0 ? 'show-suggestions' : 'no-suggestions'"
+    (keydown.enter)="submit()" (input)="getSuggestions($event)" name="" id="" cols="30" rows="10"></textarea>
 
-<ul *ngIf="suggestions.length > 0">
-    <li *ngFor="let s of suggestions"><a href="/search?query={{s}}">{{s}}</a></li>
-</ul>
+    <ul id="suggestions" *ngIf="suggestions.length > 0">
+        <li class="row" *ngFor="let s of suggestions"><a href="/search?query={{s}}">{{s}}</a></li>
+    </ul>
+</main>
