@@ -15,13 +15,19 @@ const opensearch = new Client({
 const subjects = nano.use("subjects")
 const materials = nano.use("materials")
 
+function queryParamToArray(value) {
+    if (value === undefined) return []
+    if (value === "") return []
+    return value.split(",")
+}
+
 app.get("/", async (req, res) => {
     let result = await nano.db.list()
     res.send(result)
 })
 
 app.get("/subjects", async (req, res) => {
-    let result = await subjects.list({include_docs: true})
+    let result = await subjects.list({ include_docs: true })
     res.send(result.rows.map((row) => row.doc))
 })
 
@@ -31,62 +37,101 @@ app.get("/materials/:id", async (req, res) => {
 })
 
 app.get("/search", async (req, res) => {
-    let query = req.query.query
-    
-    if (query === undefined) {
-        res.send([])
-        return
-    }
+    try {
+        let query = req.query.query
+        let subjects = queryParamToArray(req.query.subjects)
+        let grades = queryParamToArray(req.query.grades)
+        let tags = queryParamToArray(req.query.tags)
 
-    let result = await opensearch.search({
-        index: "materials",
-        body: {
-            query: {
-                match_phrase_prefix: {
-                    name: {
-                        query: query
-                    }
-                }
-            }
+        // no search parameters
+        if (query === undefined && subjects.length == 0 && grades.length == 0 && tags.length == 0) {
+            res.send([])
+            return
         }
-    })
 
-    docIds = result.body.hits.hits.map((elem) => elem._id) || []
-    docs = await materials.fetch({keys: docIds})
-    res.send(docs.rows.map((elem) => elem.doc))
+        let musts = []
+        if (query !== undefined) {
+            musts.push({
+                multi_match: {
+                    query: query,
+                    fields: ["name", "description"],
+
+                }
+            })
+        }
+
+        let myfilter = subjects.map((s) => ({
+            match: {
+                subjects: s
+            }
+        })).concat(grades.map((g) => ({
+            match: {
+                grades: g
+            }
+        })))
+
+        let result = await opensearch.search({
+            index: "materials",
+            body: {
+                query: {
+                    bool: {
+                        must: musts,
+                        filter: myfilter
+                    }
+                },
+
+            }
+        })
+
+        docIds = result.body.hits.hits.map((elem) => elem._id) || []
+
+        if (docIds.length == 0) {
+            throw Error("No Results found")
+        }
+        docs = await materials.fetch({ keys: docIds })
+        res.send(docs.rows.map((elem) => elem.doc))
+    } catch (error) {
+        console.log("Error in search")
+
+        console.log(error)
+        res.send([])
+    }
 })
 
 app.get("/complete", async (req, res) => {
-    let text = req.query["text"]
+    try {
+        let text = req.query["text"]
 
-    if (text === undefined) {
-        res.send([])
-        return
-    }
+        if (text === undefined) {
+            res.send([])
+            return
+        }
 
-    let result = await opensearch.search({
-        index: "materials",
-        body: {
+        let result = await opensearch.search({
+            index: "materials",
+            body: {
 
-            suggest: {
-                autocomplete: {
-                    prefix: text,
-                    completion: {
-                        field: "name_completion"
+                suggest: {
+                    autocomplete: {
+                        prefix: text,
+                        completion: {
+                            field: "name_completion"
+                        }
                     }
                 }
+
             }
+        })
 
-        }
-    })
-
-    try {
         result = result.body.suggest.autocomplete[0].options.map((elem) => elem.text)
-    } catch {
-        result = []
+        res.send(result)
+    } catch (error) {
+        console.log("Error in complete")
+        console.log(error)
+        res.send([])
     }
 
-    res.send(result)
+
 })
 
 

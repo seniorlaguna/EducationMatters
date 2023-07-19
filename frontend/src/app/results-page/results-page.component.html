@@ -1,8 +1,26 @@
 <main class="column">
+    <app-searchbar 
+    (queryOutput)="onQueryChanged($event)"
+    (subjectsOutput)="onSubjectsChanged($event)"
+    (gradesOutput)="onGradesChanged($event)"
+    (tagsOutput)="onTagsChanged($event)"
+    ></app-searchbar>
+
     <p *ngIf="results.length == 0">Sorry nix gefunden</p>
     <ul *ngIf="results.length > 0">
-        <li *ngFor="let i of results">
-            <a routerLink="/material/{{i._id}}">{{i.name}}</a>
-        </li>
+        <a *ngFor="let material of results" routerLink="/material/{{material._id}}">
+
+            <div style="width: 800px; border: 1px lightgrey solid; margin-bottom: 24px" class="row">
+                <img style="height: 120px; width: 120px;" src="https://raw.githubusercontent.com/seniorlaguna/EducationMattersLibrary/main/{{material._id}}/thumbnail.webp" alt="">
+                <div style="width: 8px;"></div>
+                <div class="column">
+                <p>{{material.name}}</p>
+                <p>{{material.description}}</p>
+                </div>
+                
+            </div>
+        </a>
+        
+            
     </ul>
 </main>

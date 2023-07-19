@@ -21,11 +21,16 @@ export class ApiService {
     return this.http.get<Material>(`${HOST}/api/materials/${id}`)
   }
 
-  search(query: string) : Observable<Material[]> {
+  search(query: string, subjects: string[], grades: string[], tags: string[]) : Observable<Material[]> {
+
+    let params : any = {}
+    if (query.length > 0) params.query = query
+    if (subjects.length > 0) params.subjects = subjects.join(",")
+    if (grades.length > 0) params.grades = grades.join(",")
+    if (tags.length > 0) params.tags = tags.join(",")
+
     return this.http.get<Material[]>(`${HOST}/api/search`, {
-      params: {
-        query: query
-      }
+      params: params
     })
   }
 

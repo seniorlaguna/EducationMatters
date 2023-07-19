@@ -1,12 +1,29 @@
 <div *ngIf="material != undefined">
-    <h1>{{material.name}}</h1>
-    <img src="https://raw.githubusercontent.com/seniorlaguna/EducationMattersLibrary/main/{{material._id}}/thumbnail.webp" height="200" alt="Materialvorschau">
-    <span *ngFor="let i of material?.subjects">{{i}}</span>
-    <span *ngFor="let i of material?.grades">{{i}}</span>
-    <ul>
-        <li *ngFor="let i of material?.tags">{{i}}</li>
-    </ul>
-    <p>{{material.description}}</p>
-    <button type="button">Speichern</button>
-    <button type="button">{{material.type}}</button>
+    <main class="column">
+        <div class="row">
+            <div class="column">
+                <img src="https://raw.githubusercontent.com/seniorlaguna/EducationMattersLibrary/main/{{material._id}}/thumbnail.webp"
+                    height="200" alt="Materialvorschau">
+
+                <div style="height: 24px;"></div>
+                <button type="button">Speichern</button>
+                <button type="button">{{material.type}}</button>
+            </div>
+            <div style="width: 32px;"></div>
+            <div style="width: 600px; row-gap: 4px;" class="column">
+                <h1>{{material.name}}</h1>
+                <div>
+                    Fächer: {{material.subjects.join(", ")}}
+                </div>
+                <div>
+                    Klassen: {{material.grades.join(", ")}}
+                </div>
+
+                <ul>
+                    <li *ngFor="let i of material?.tags">{{i}}</li>
+                </ul>
+                <p>{{material.description}}</p>
+            </div>
+        </div>
+    </main>
 </div>

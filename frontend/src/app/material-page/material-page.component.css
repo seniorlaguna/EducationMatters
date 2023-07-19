@@ -1,0 +1,25 @@
+main {
+    align-items: center;
+    padding: 42px;
+}
+
+img {
+    border-radius: 8px;
+    height: 300px;
+    width: 240px;
+    object-fit: cover;
+}
+
+button {
+    margin-top: 8px;
+}
+
+li {
+    list-style-type: none;
+    background-color: grey;
+    display: inline;
+    margin-right: 4px;
+    padding: 5px;
+    border-radius: 16px;
+    color: white;
+}

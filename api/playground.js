@@ -36,44 +36,45 @@ async function main() {
 }
 
 async function search() {
-    let query = "Grinschinator"
+    let query = undefined
+    let grades = []
+    let subjects = ["Deutsch"]
 
-    // let result = await opensearch.search({
-    //     index: "materials",
-    //     body: {
-    //         query: {
-    //             match: {
-    //                 name: {
-    //                     query: query
-    //                 }
-    //             }
-    //         }
-    //     }
-    // })
+        
 
-    // docIds = result.body.hits.hits.map((elem) => elem._id)
-    // docs = await materials.fetch({keys: docIds})
-    // console.log(docs.rows.map((elem) => elem.doc))
-    
-    let result = await opensearch.search({
-        index: "materials",
-        body: {
-            query: {
-                match_bool_prefix: {
-                    name: {
-                        query: query,
-                        fuzziness: "AUTO",
-                        max_expansions: 50,
-                        fuzzy_transpositions: true,
-                        prefix_length: 0,
-                        operator:  "or",
-                        minimum_should_match: 2,
-                        analyzer: "standard"
-                    }
+        let musts = []
+        if (query !== undefined) {
+            musts.push({
+                multi_match: {
+                    query: query,
+                    fields: ["name", "description"],
+
                 }
-            }
+            })
         }
-    })
+
+        let myfilter = subjects.map((s) => ({
+            match: {
+                subjects: s
+            }
+        })).concat(grades.map((g) => ({
+            match: {
+                grades: g
+            }
+        })))
+
+        let result = await opensearch.search({
+            index: "materials",
+            body: {
+                query: {
+                    bool: {
+                        must: musts,
+                        filter: myfilter
+                    }
+                },
+
+            }
+        })
 
     console.log(result.body.hits.hits)
 }
