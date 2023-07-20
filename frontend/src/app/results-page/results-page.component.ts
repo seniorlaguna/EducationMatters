@@ -13,14 +13,15 @@ export class ResultsPageComponent {
   subjects: string[] = []
   grades: string[] = []
   tags: string[] = []
+  persons: string[] = []
 
   results: Material[] = []
   
   constructor(private api: ApiService, private route: ActivatedRoute) {}
 
   search() {
-    console.log(this.query, this.subjects, this.grades, this.tags)
-    this.api.search(this.query, this.subjects, this.grades, this.tags).subscribe((materials) => {
+    //console.log(this.query, this.subjects, this.grades, this.tags, this.persons)
+    this.api.search(this.query, this.subjects, this.grades, this.tags, this.persons).subscribe((materials) => {
       this.results = materials
     })
   }
@@ -42,6 +43,11 @@ export class ResultsPageComponent {
 
   onTagsChanged(tags: string) {
     this.tags = tags.split(",")
+    this.search()
+  }
+
+  onPersonsChanged(persons: string) {
+    this.persons = persons.split(",")
     this.search()
   }
 }

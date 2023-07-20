@@ -13,6 +13,7 @@ export class SearchbarComponent implements OnInit {
   @Output() subjectsOutput : EventEmitter<string> = new EventEmitter()
   @Output() gradesOutput : EventEmitter<string> = new EventEmitter()
   @Output() tagsOutput : EventEmitter<string> = new EventEmitter()
+  @Output() personsOutput : EventEmitter<string> = new EventEmitter()
   
   availableSubjects: Subject[] = []
 
@@ -20,6 +21,7 @@ export class SearchbarComponent implements OnInit {
   selectedSubjects: string[] = []
   grades: string[] = []
   tags: string[] = []
+  persons: string[] = []
 
   suggestions: string[] = []
 
@@ -42,6 +44,11 @@ export class SearchbarComponent implements OnInit {
     this.tagsOutput.emit(this.tags.join(","))
   }
 
+  private setPersons(persons: string[]) {
+    this.persons = persons
+    this.personsOutput.emit(this.persons.join(","))
+  }
+
   ngOnInit(): void {
         this.api.getSubjects().subscribe((subjects) => {
           this.availableSubjects = subjects
@@ -50,7 +57,8 @@ export class SearchbarComponent implements OnInit {
         this.setQuery(this.route.snapshot.queryParamMap.get("query") || "") 
         this.setSubjects(this.route.snapshot.queryParamMap.get("subjects")?.split(",") || []) 
         this.setGrades(this.route.snapshot.queryParamMap.get("grades")?.split(",") || [])
-        this.setTags(this.route.snapshot.queryParamMap.get("tags")?.split(",") || [])   
+        this.setTags(this.route.snapshot.queryParamMap.get("tags")?.split(",") || []) 
+        this.setPersons(this.route.snapshot.queryParamMap.get("persons")?.split(",") || []) 
   }
 
   submit() {
@@ -58,10 +66,38 @@ export class SearchbarComponent implements OnInit {
     document.getElementById("searchbar")?.blur()
   }
 
-  getSuggestions(event: Event) {
-    this.setQuery((event.target as any).value)
-    
-    this.api.complete(this.query).subscribe((suggestions) => {
+  onTextAreaChanged(event: Event) {
+    let input : string = (event.target as any).value
+    let terms = input.split(" ")
+
+    let query: string[] = []
+    let tags: string[] = []
+    let persons: string[] = []
+
+    for (let i in terms) {
+      let term: string = terms[i]
+      if (term.startsWith("#")) {
+        tags.push(term.substring(1))
+      } else if (term.startsWith("@")) {
+        persons.push(term.substring(1))
+      } else {
+        query.push(term)
+      }
+    }
+
+
+    console.log(input, terms, query, query.join(" "), tags, persons)
+
+    this.setQuery(input)
+    this.setTags(tags)
+    this.setPersons(persons)
+
+    this.getSuggestions(query.join(" "))
+  }
+
+  
+  getSuggestions(query: string) {
+    this.api.complete(query).subscribe((suggestions) => {
       this.suggestions = suggestions
     })
   }

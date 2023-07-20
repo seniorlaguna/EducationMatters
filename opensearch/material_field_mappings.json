@@ -15,6 +15,12 @@
       "subjects": {
         "type": "text"
       },
+      "tags" : {
+        "type": "text"
+      },
+      "persons": {
+        "type": "text"
+      },
       "text_content": {
         "type": "text",
         "analyzer": "german"

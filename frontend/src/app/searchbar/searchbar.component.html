@@ -2,7 +2,7 @@
     id="searchbar"
     [className]="suggestions.length > 0 ? 'show-suggestions' : 'no-suggestions'"
     (keydown.enter)="submit()" 
-    (input)="getSuggestions($event)"
+    (input)="onTextAreaChanged($event)"
     [value]="query">
 </textarea>
 

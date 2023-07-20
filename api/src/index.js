@@ -62,6 +62,7 @@ app.get("/search", async (req, res) => {
         let subjects = queryParamToArray(req.query.subjects)
         let grades = queryParamToArray(req.query.grades)
         let tags = queryParamToArray(req.query.tags)
+        let persons = queryParamToArray(req.query.person)
 
         // no search parameters
         if (query === undefined && subjects.length == 0 && grades.length == 0 && tags.length == 0) {
@@ -87,6 +88,14 @@ app.get("/search", async (req, res) => {
         })).concat(grades.map((g) => ({
             match: {
                 grades: g
+            }
+        }))).concat(tags.map((t) => ({
+            match: {
+                tags: t
+            }
+        }))).concat(persons.map((p) => ({
+            match: {
+                persons: p
             }
         })))
 
