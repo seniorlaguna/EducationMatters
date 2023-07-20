@@ -1,25 +1,74 @@
 main {
     align-items: center;
-    padding: 42px;
+    justify-content: center;
 }
 
-img {
-    border-radius: 8px;
+#materialContainer {
+    margin-top: 42px;
+    width: 80vw;
+    column-gap: 14px;
+}
+
+#thumbnailActions {
+    width: 214px;
+}
+
+#thumbnail {
     height: 300px;
-    width: 240px;
+    width: 214px;
     object-fit: cover;
 }
 
-button {
-    margin-top: 8px;
+.miniThumbnail {
+    height: 60px;
+    width: 42px;
+    object-fit: cover;
+    margin-right: 2px;
 }
 
-li {
-    list-style-type: none;
-    background-color: grey;
+#thumbnailList {
+    margin-top: 2px;
+    overflow-x: scroll;
+    width: 214px;
+    height: 60px;
+}
+
+#informationContainer > h2 {
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 2px;
+}
+
+#subjectGradeInformation {
+    font-size: 16px;
+    font-weight: 400;
+    color: rgb(96, 96, 96);
+    margin-bottom: 8px;
+}
+
+#tags {
+    margin-bottom: 16px;
+    color: rgb(96, 96, 96);
+}
+
+#tags > li {
+    padding-right: 8px;
     display: inline;
-    margin-right: 4px;
-    padding: 5px;
-    border-radius: 16px;
-    color: white;
+    list-style-type: none;
+    font-size: 16px;
+}
+
+#description {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+#actions {
+    margin-top: 16px;
+}
+
+#actions > button {
+    height: 35px;
+    width: 214px;
+    margin-bottom: 8px;
 }

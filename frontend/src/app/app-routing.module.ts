@@ -13,7 +13,7 @@ const routes: Routes = [
     path: "search", component: ResultsPageComponent
   },
   {
-    path: "material/:id", component: MaterialPageComponent
+    path: "materials/:id", component: MaterialPageComponent
   },
   {
     path: "**", redirectTo: ""

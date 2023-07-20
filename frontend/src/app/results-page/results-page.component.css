@@ -9,3 +9,7 @@ main > ul > li {
     width: 800px;
     background-color: #EEEEEE;
 }
+
+app-material-card {
+    margin-top: 16px;
+}
