@@ -1,5 +1,4 @@
 const express = require("express")
-const nano = require('nano')('http://admin:password@couchdb:5984');
 const { Client } = require("@opensearch-project/opensearch");
 
 
@@ -11,9 +10,6 @@ const opensearch = new Client({
         rejectUnauthorized: false,
     }
 })
-
-const subjects = nano.use("subjects")
-const materials = nano.use("materials")
 
 function queryParamToArray(value) {
     if (value === undefined) return []
@@ -27,13 +23,37 @@ app.get("/", async (req, res) => {
 })
 
 app.get("/subjects", async (req, res) => {
-    let result = await subjects.list({ include_docs: true })
-    res.send(result.rows.map((row) => row.doc))
+    try {
+        let results = await opensearch.search(
+            {
+                index: "subjects",
+                body: {
+                    query: {
+                        match_all: {}
+                    }
+                }
+            }
+        )
+    
+        res.send(results.body.hits.hits.map((s) => {
+            s._source.id = s._id
+            return s._source
+        }))
+    } catch (error) {
+        console.log(error)
+        res.send([])
+    }
 })
 
 app.get("/materials/:id", async (req, res) => {
-    let result = await materials.get(req.params.id)
-    res.send(result)
+    let result = await opensearch.get({
+        index: "materials",
+        id: req.params.id
+    })
+
+    let doc = result.body._source
+    doc.id = result.body._id
+    res.send(doc)
 })
 
 app.get("/search", async (req, res) => {
@@ -83,13 +103,17 @@ app.get("/search", async (req, res) => {
             }
         })
 
-        docIds = result.body.hits.hits.map((elem) => elem._id) || []
+        docs = result.body.hits.hits.map((elem) => {
 
-        if (docIds.length == 0) {
-            throw Error("No Results found")
-        }
-        docs = await materials.fetch({ keys: docIds })
-        res.send(docs.rows.map((elem) => elem.doc))
+            let doc = elem._source
+            doc.id = elem._id
+            return doc
+
+        }) || []
+
+        
+        
+        res.send(docs)
     } catch (error) {
         console.log("Error in search")
 

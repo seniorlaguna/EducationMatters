@@ -1,3 +1,4 @@
-HOST=localhost:9200
-curl -H "Content-Type: application/x-ndjson" \
-     -X PUT https://$HOST/materials -ku admin:admin --data-binary "@field_mappings.json"
+OPENSEARCH="https://localhost:9200"
+
+curl -s -H "Content-Type: application/x-ndjson" \
+     -X PUT $OPENSEARCH/$1 -ku admin:admin --data-binary "@$2"

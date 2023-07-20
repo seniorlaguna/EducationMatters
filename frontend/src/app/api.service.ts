@@ -45,18 +45,17 @@ export class ApiService {
 }
 
 export interface Subject {
-  _id: string,
-  _rev: string,
+  id: string,
   name: string
 }
 
 export interface Material {
-  _id: string,
-  _rev: string,
+  id: string,
   name: string,
   description: string,
   tags: string[],
   type: string,
   subjects: string[],
-  grades: number[]
+  grades: number[],
+  thumbnails: string[]
 }

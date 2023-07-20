@@ -32,7 +32,42 @@ async function suggestion() {
 
 async function main() {
     //await suggestion()
-    search()
+    //search()
+    // getSubjects()
+    getDocumentById()
+}
+
+async function getDocumentById() {
+    let result = await opensearch.get({
+        index: "materials",
+        id: "0"
+    })
+
+    let doc = result.body._source
+    doc.id = result.body._id
+    console.log(doc)
+}
+
+async function getSubjects() {
+    try {
+        let results = await opensearch.search(
+            {
+                index: "subjects",
+                body: {
+                    query: {
+                        match_all: {}
+                    }
+                }
+            }
+        )
+    
+        console.log(results.body.hits.hits.map((s) => {
+            s._source.id = s._id
+            return s._source
+        }))
+    } catch (error) {
+        console.log(error)
+    }
 }
 
 async function search() {

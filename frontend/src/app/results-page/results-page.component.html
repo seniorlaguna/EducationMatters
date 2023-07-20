@@ -8,10 +8,10 @@
 
     <p *ngIf="results.length == 0">Sorry nix gefunden</p>
     <ul *ngIf="results.length > 0">
-        <a *ngFor="let material of results" routerLink="/material/{{material._id}}">
+        <a *ngFor="let material of results" routerLink="/material/{{material.id}}">
 
             <div style="width: 800px; border: 1px lightgrey solid; margin-bottom: 24px" class="row">
-                <img style="height: 120px; width: 120px;" src="https://raw.githubusercontent.com/seniorlaguna/EducationMattersLibrary/main/{{material._id}}/thumbnail.webp" alt="">
+                <img style="height: 120px; width: 120px;" src="https://raw.githubusercontent.com/seniorlaguna/EducationMattersLibrary/main/{{material.id}}/thumbnails/{{material.thumbnails[0]}}" alt="">
                 <div style="width: 8px;"></div>
                 <div class="column">
                 <p>{{material.name}}</p>

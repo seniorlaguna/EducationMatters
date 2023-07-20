@@ -4,15 +4,6 @@ services:
     image: eduma_webserver
     ports:
       - "8000:80"
-  
-  couchdb:
-    image: couchdb:3.3.2
-    environment:
-      - COUCHDB_USER=admin
-      - COUCHDB_PASSWORD=password
-    ports:
-      - "5984:5984"
-  
   api:
     image: eduma_api
     ports:

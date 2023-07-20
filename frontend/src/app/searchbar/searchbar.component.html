@@ -8,7 +8,7 @@
 
 <div>
     <li *ngFor="let subject of availableSubjects">
-        {{subject.name}} <input type="checkbox" [checked]="selectedSubjects.includes(subject.name)" (input)="toggleSubject(subject.name)" name="{{subject.name}}">
+        {{subject.name}} <input type="checkbox" [checked]="selectedSubjects.includes(subject.id)" (input)="toggleSubject(subject.id)" name="{{subject.name}}">
     </li>
 </div>
 
