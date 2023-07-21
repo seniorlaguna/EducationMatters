@@ -62,10 +62,10 @@ app.get("/search", async (req, res) => {
         let subjects = queryParamToArray(req.query.subjects)
         let grades = queryParamToArray(req.query.grades)
         let tags = queryParamToArray(req.query.tags)
-        let persons = queryParamToArray(req.query.person)
+        let persons = queryParamToArray(req.query.persons)
 
         // no search parameters
-        if (query === undefined && subjects.length == 0 && grades.length == 0 && tags.length == 0) {
+        if (query === undefined && subjects.length == 0 && grades.length == 0 && tags.length == 0 && persons.length == 0) {
             res.send([])
             return
         }

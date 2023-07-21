@@ -1,6 +1,9 @@
 <main class="column">
 
     <div style="height: 100px;"></div>
-    <app-searchbar></app-searchbar>
+    <app-searchbar 
+        (onTextChanged)="onSearchQueryChanged($event)"
+        (onSubmitted)="onSubmit()"
+    ></app-searchbar>
     
 </main>

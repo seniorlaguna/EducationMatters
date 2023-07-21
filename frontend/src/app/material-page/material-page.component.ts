@@ -13,6 +13,8 @@ export class MaterialPageComponent implements OnInit {
   thumbnails : string[] = []
   currentThumbnailIndex = 0
 
+  actions: any[] = []
+
   constructor(private api: ApiService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
@@ -21,6 +23,7 @@ export class MaterialPageComponent implements OnInit {
         this.thumbnails = this.material.thumbnails.map((name) => {
           return `https://raw.githubusercontent.com/seniorlaguna/EducationMattersLibrary/main/${this.material!.id}/thumbnails/${name}`
         })
+        this.initActions()
       })
   }
 
@@ -31,4 +34,48 @@ export class MaterialPageComponent implements OnInit {
     return this.thumbnails[this.currentThumbnailIndex]
   }
 
+  initActions() {
+    if (this.material == null) return
+    console.log("INIT ACTIONS")
+
+    switch (this.material.type) {
+      case "DOC":
+        this.actions.push({
+          name: "Ansehen",
+          action: this.viewAction()
+        })
+        this.actions.push({
+          name: "Speichern",
+          action: this.saveAction
+        })
+        break
+      case "WEB":
+        this.actions.push({
+          name: "Starten",
+          action: this.startAction()
+        })
+        break
+    
+      default:
+        console.log("ERROR UNKNOWN MATERIAL TYPE")
+        break
+    }
+  }
+
+  viewAction() {
+    if (this.material == null) return () => {console.log("ERROR")}
+    return () => {
+      let url = `https://raw.githubusercontent.com/seniorlaguna/EducationMattersLibrary/main/${this.material!.id}/${this.material!.file}`
+      window.open(url, "_blank")
+    }
+  }
+
+  saveAction() {}
+
+  startAction() {
+    if (this.material == null) return () => {console.log("ERROR")}
+    return () => {
+      window.open(this.material!.file, "_blank")
+    }
+  }
 }

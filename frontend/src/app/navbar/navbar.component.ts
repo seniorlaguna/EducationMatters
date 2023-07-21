@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService, Subject } from '../api.service';
+import { ApiService, EdumaSubject } from '../api.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,12 +8,12 @@ import { ApiService, Subject } from '../api.service';
 })
 export class NavbarComponent implements OnInit {
 
-  subjects: Subject[] = []
+  subjects: EdumaSubject[] = []
 
   constructor(private api: ApiService) {}
 
   ngOnInit(): void {
-    this.api.getSubjects().subscribe((subjects) => {
+    this.api.availableSubjects.subscribe((subjects) => {
       this.subjects = subjects
     })
 }

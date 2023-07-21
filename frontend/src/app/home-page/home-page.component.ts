@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ApiService, Subject } from '../api.service';
+import { ApiService, EdumaSubject } from '../api.service';
 
 @Component({
   selector: 'app-home-page',
@@ -9,6 +9,14 @@ import { ApiService, Subject } from '../api.service';
 })
 export class HomePageComponent {
 
-  
+  constructor(private api: ApiService) {}
+
+  onSubmit() {
+    this.api.adjustSearchUrl()
+  }
+
+  onSearchQueryChanged(query: string) {
+    this.api.processSearchQuery(query)
+  }
 
 }

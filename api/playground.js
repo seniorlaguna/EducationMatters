@@ -34,7 +34,28 @@ async function main() {
     //await suggestion()
     //search()
     // getSubjects()
-    getDocumentById()
+    //getDocumentById()
+    personSearch()
+}
+
+async function personSearch() {
+    let result = await opensearch.search({
+        index: "materials",
+        body: {
+            query: {
+                bool: {
+                    filter: {
+                        match: {
+                            persons: "Grinsch"
+                        }
+                    }
+                }
+            },
+
+        }
+    })
+
+    console.log(result.body.hits.hits)
 }
 
 async function getDocumentById() {

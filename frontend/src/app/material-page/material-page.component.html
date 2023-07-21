@@ -3,14 +3,12 @@
         <div id="thumbnailActions" class="column">
             <img id="thumbnail" src="{{getThumbnail()}}" alt="Materialvorschau">
 
-            <div id="thumbnailList" class="row">
+            <div *ngIf="thumbnails.length > 1" id="thumbnailList" class="row">
                 <img *ngFor="let thumbnail of thumbnails; index as i" class="miniThumbnail" src="{{thumbnails[i]}}" (click)="currentThumbnailIndex = i">
             </div>
 
             <div id="actions">
-                <button type="button">Ansehen</button>
-                <button type="button">Speichern</button>
-                <button type="button">{{material.type}}</button>
+                <button *ngFor="let action of actions" type="button" (click)="action.action()">{{action.name}}</button>
             </div>
 
         </div>

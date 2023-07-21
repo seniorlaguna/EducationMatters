@@ -27,6 +27,9 @@
       },
       "name_completion" : {
         "type": "completion"
+      },
+      "file": {
+        "type": "text"
       }
     }
   }

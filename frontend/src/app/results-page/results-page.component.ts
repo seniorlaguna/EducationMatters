@@ -1,53 +1,47 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService, Material } from '../api.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-results-page',
   templateUrl: './results-page.component.html',
   styleUrls: ['./results-page.component.css']
 })
-export class ResultsPageComponent {
-
-  query: string = ""
-  subjects: string[] = []
-  grades: string[] = []
-  tags: string[] = []
-  persons: string[] = []
+export class ResultsPageComponent implements OnInit {
 
   results: Material[] = []
   
-  constructor(private api: ApiService, private route: ActivatedRoute) {}
+  constructor(private api: ApiService) {}
 
-  search() {
-    //console.log(this.query, this.subjects, this.grades, this.tags, this.persons)
-    this.api.search(this.query, this.subjects, this.grades, this.tags, this.persons).subscribe((materials) => {
-      this.results = materials
+  ngOnInit(): void {
+    this.api.searchResults.subscribe((results) => {
+      this.results = results
     })
+      this.api.parseUrl()
+      this.api.search()
+      
   }
 
-  onQueryChanged(query: string) {
-    this.query = query
-    this.search()
+  onSearchQueryChanged(query: string) {
+    this.api.processSearchQuery(query)
+    this.api.adjustSearchUrl()
+    this.api.search()
   }
 
-  onSubjectsChanged(subjects: string) {
-    this.subjects = subjects.split(",")
-    this.search()
+  onSubjectsChanged(subjects: string[]) {
+    this.api.subjects = subjects
+    this.api.adjustSearchUrl()
+    this.api.search()
   }
 
-  onGradesChanged(grades: string) {
-    this.grades = grades.split(",")
-    this.search()
+  onGradesChanged(grades: string[]) {
+    this.api.grades = grades
+    this.api.adjustSearchUrl()
+    this.api.search()
   }
 
-  onTagsChanged(tags: string) {
-    this.tags = tags.split(",")
-    this.search()
+  onGetResults(materials: Material[]) {
+    this.results = materials
+    console.log("GOT RESULTS", materials, this.results)
   }
 
-  onPersonsChanged(persons: string) {
-    this.persons = persons.split(",")
-    this.search()
-  }
 }

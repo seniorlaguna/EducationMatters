@@ -1,10 +1,8 @@
 <main class="column">
     <app-searchbar 
-    (queryOutput)="onQueryChanged($event)"
-    (subjectsOutput)="onSubjectsChanged($event)"
-    (gradesOutput)="onGradesChanged($event)"
-    (tagsOutput)="onTagsChanged($event)"
-    (personsOutput)="onPersonsChanged($event)"
+        (onTextChanged)="onSearchQueryChanged($event)"
+        (onSubjectsChanged)="onSubjectsChanged($event)"
+        (onGradesChanged)="onGradesChanged($event)"
     ></app-searchbar>
 
     <p *ngIf="results.length == 0">Sorry nix gefunden</p>

@@ -1,17 +1,19 @@
 <textarea
     id="searchbar"
-    [className]="suggestions.length > 0 ? 'show-suggestions' : 'no-suggestions'"
-    (keydown.enter)="submit()" 
-    (input)="onTextAreaChanged($event)"
-    [value]="query">
+    [className]="false ? 'show-suggestions' : 'no-suggestions'"
+    [value]="text"
+    (keydown.enter)="submit($event)" 
+    (input)="setText($event)">
 </textarea>
 
 <div>
-    <li *ngFor="let subject of availableSubjects">
-        {{subject.name}} <input type="checkbox" [checked]="selectedSubjects.includes(subject.id)" (input)="toggleSubject(subject.id)" name="{{subject.name}}">
-    </li>
+    <span *ngFor="let s of availableSubjects">
+        {{s.name}}<input type="checkbox" id="{{s.id}}" [checked]="selectedSubjects.includes(s.id)" (click)="toggleSubject(s)">
+    </span>
 </div>
 
-    <ul id="suggestions" *ngIf="suggestions.length > 0">
-        <li class="row" *ngFor="let s of suggestions"><a href="/search?query={{s}}">{{s}}</a></li>
-    </ul>
+<div>
+    <span *ngFor="let g of '1,2,3,4,5,6'.split(',')">
+        {{g}}<input type="checkbox" id="{{g}}" [checked]="selectedGrades.includes(g)" (click)="toggleGrade(g)">
+    </span>
+</div>
