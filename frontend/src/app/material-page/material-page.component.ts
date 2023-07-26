@@ -46,7 +46,7 @@ export class MaterialPageComponent implements OnInit {
         })
         this.actions.push({
           name: "Speichern",
-          action: this.saveAction
+          action: this.saveAction()
         })
         break
       case "WEB":
@@ -63,19 +63,25 @@ export class MaterialPageComponent implements OnInit {
   }
 
   viewAction() {
-    if (this.material == null) return () => {console.log("ERROR")}
+    if (this.material == null) return () => {console.log("VIEW ERROR")}
     return () => {
-      let url = `https://raw.githubusercontent.com/seniorlaguna/EducationMattersLibrary/main/${this.material!.id}/${this.material!.file}`
+      let url = `/materials/${this.material!.id}/content/${this.material!.file}`
       window.open(url, "_blank")
     }
   }
 
-  saveAction() {}
+  saveAction() {
+    if (this.material == null) return () => {console.log("SAVE ERROR")}
+    return () => {
+      let url = `/materials/${this.material!.id}/download/${this.material!.file}`
+      window.open(url, "_blank")
+    }
+  }
 
   startAction() {
     if (this.material == null) return () => {console.log("ERROR")}
     return () => {
-      window.open(this.material!.file, "_blank")
+      window.open(`/materials/${this.material?.id}/content/${this.material!.file}`, "_blank")
     }
   }
 }
