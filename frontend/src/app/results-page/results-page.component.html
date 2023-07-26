@@ -3,6 +3,7 @@
         (onTextChanged)="onSearchQueryChanged($event)"
         (onSubjectsChanged)="onSubjectsChanged($event)"
         (onGradesChanged)="onGradesChanged($event)"
+        (onTypeChanged)="onTypeChanged($event)"
     ></app-searchbar>
 
     <p *ngIf="results.length == 0">Sorry nix gefunden</p>

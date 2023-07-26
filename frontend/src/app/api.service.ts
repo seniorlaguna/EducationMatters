@@ -17,6 +17,7 @@ export class ApiService {
   grades: string[] = []
   tags: string[] = []
   persons: string[] = []
+  type: string = ""
 
   searchResults: Subject<Material[]> = new Subject()
   availableSubjects: ReplaySubject<EdumaSubject[]> = new ReplaySubject()
@@ -32,6 +33,7 @@ export class ApiService {
     if (this.grades.length > 0) params.grades = this.grades.join(",")
     if (this.tags.length > 0) params.tags = this.tags.join(",")
     if (this.persons.length > 0) params.persons = this.persons.join(",")
+    if (this.type.length > 0) params.type = this.type
     return params
   }
 
@@ -64,6 +66,7 @@ export class ApiService {
     this.grades = params.get("grades")?.split(",") || []
     this.tags = params.get("tags")?.split(",") || []
     this.persons = params.get("persons")?.split(",") || []
+    this.type = params.get("type") || ""
 
     this.searchBarQuery = this.createSearchBarQuery()
   }

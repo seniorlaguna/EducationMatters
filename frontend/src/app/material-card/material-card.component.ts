@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Material } from '../api.service';
+import { getIcon } from '../utils';
 
 @Component({
   selector: 'app-material-card',
@@ -9,6 +10,10 @@ import { Material } from '../api.service';
 export class MaterialCardComponent {
 
   @Input() material: Material | null = null
+
+  icon() : string {
+    return getIcon(this.material?.type)
+  }
 
   getThumbnailUrl() : string {
     if (this.material?.thumbnails.length == 0) {

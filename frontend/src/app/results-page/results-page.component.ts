@@ -44,4 +44,10 @@ export class ResultsPageComponent implements OnInit {
     console.log("GOT RESULTS", materials, this.results)
   }
 
+  onTypeChanged(type: string) {
+    this.api.type = type
+    this.api.adjustSearchUrl()
+    this.api.search()
+  }
+
 }

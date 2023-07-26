@@ -17,3 +17,9 @@
         {{g}}<input type="checkbox" id="{{g}}" [checked]="selectedGrades.includes(g)" (click)="toggleGrade(g)">
     </span>
 </div>
+
+<div>
+    <span *ngFor="let t of ['DOC', 'WEB']">
+        {{t}}<input type="checkbox" id="{{t}}" [checked]="selectedType == t" (click)="setType(t)">
+    </span>
+</div>

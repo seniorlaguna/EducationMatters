@@ -11,12 +11,14 @@ export class SearchbarComponent implements OnInit {
   @Output() onTextChanged: EventEmitter<string> = new EventEmitter()
   @Output() onSubjectsChanged: EventEmitter<string[]> = new EventEmitter()
   @Output() onGradesChanged: EventEmitter<string[]> = new EventEmitter()
+  @Output() onTypeChanged: EventEmitter<string> = new EventEmitter()
   @Output() onSubmitted: EventEmitter<any> = new EventEmitter()
 
   text: string = ""
   availableSubjects: EdumaSubject[] = []
   selectedSubjects: string[] = []
   selectedGrades: string[] = []
+  selectedType: string = "" 
 
 
   constructor(private api: ApiService) {}
@@ -25,6 +27,7 @@ export class SearchbarComponent implements OnInit {
     this.text = this.api.searchBarQuery
     this.selectedSubjects = this.api.subjects
     this.selectedGrades = this.api.grades
+    this.selectedType = this.api.type
     this.api.availableSubjects.subscribe((subjects) => {
       this.availableSubjects = subjects
     })
@@ -60,5 +63,14 @@ export class SearchbarComponent implements OnInit {
     }
 
     this.onGradesChanged.emit(this.selectedGrades)
+  }
+
+  setType(type: string) {
+    if (this.selectedType == type) {
+      this.selectedType = ""
+    } else {
+      this.selectedType = type
+    }
+    this.onTypeChanged.emit(this.selectedType)
   }
 }

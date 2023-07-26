@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService, Material } from '../api.service';
 import { ActivatedRoute } from '@angular/router';
+import { getIcon } from '../utils';
 
 @Component({
   selector: 'app-material-page',
@@ -25,6 +26,10 @@ export class MaterialPageComponent implements OnInit {
         })
         this.initActions()
       })
+  }
+
+  icon() : string {
+    return getIcon(this.material?.type)
   }
 
   getThumbnail() : string {

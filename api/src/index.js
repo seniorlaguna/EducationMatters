@@ -63,9 +63,10 @@ app.get("/search", async (req, res) => {
         let grades = queryParamToArray(req.query.grades)
         let tags = queryParamToArray(req.query.tags)
         let persons = queryParamToArray(req.query.persons)
+        let type = req.query.type
 
         // no search parameters
-        if (query === undefined && subjects.length == 0 && grades.length == 0 && tags.length == 0 && persons.length == 0) {
+        if (query === undefined && subjects.length == 0 && grades.length == 0 && tags.length == 0 && persons.length == 0 && type === undefined) {
             res.send([])
             return
         }
@@ -75,7 +76,7 @@ app.get("/search", async (req, res) => {
             musts.push({
                 multi_match: {
                     query: query,
-                    fields: ["name", "description"],
+                    fields: ["name", "description", "text_content"],
 
                 }
             })
@@ -98,6 +99,14 @@ app.get("/search", async (req, res) => {
                 persons: p
             }
         })))
+
+        if (type !== undefined) {
+            myfilter.push({
+                match: {
+                    type: type
+                }
+            })
+        }
 
         let result = await opensearch.search({
             index: "materials",
