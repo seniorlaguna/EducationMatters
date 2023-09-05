@@ -1,5 +1,6 @@
 <main class="column">
     <app-searchbar 
+        [suggestions]="suggestions"
         (onTextChanged)="onSearchQueryChanged($event)"
         (onSubjectsChanged)="onSubjectsChanged($event)"
         (onGradesChanged)="onGradesChanged($event)"

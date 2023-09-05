@@ -1,25 +1,46 @@
+<div id="searchbar">
+
+    <div class="searchbarButton" id="subjectButton">
+        Fach ▼
+    </div>
+    <div class="searchbarButton" id="gradeButton">
+        Klasse
+    </div>
+    <div class="searchbarButton" id="typeButton">
+        Typ
+    </div>
+    
+
 <textarea
-    id="searchbar"
-    [className]="false ? 'show-suggestions' : 'no-suggestions'"
-    [value]="text"
-    (keydown.enter)="submit($event)" 
-    (input)="setText($event)">
+id="searchbar"
+placeholder="Suchbegriff"
+[className]="false ? 'show-suggestions' : 'no-suggestions'"
+[value]="text"
+(keydown.enter)="submit($event)" 
+(input)="setText($event)">
 </textarea>
 
+
 <div>
-    <span *ngFor="let s of availableSubjects">
-        {{s.name}}<input type="checkbox" id="{{s.id}}" [checked]="selectedSubjects.includes(s.id)" (click)="toggleSubject(s)">
-    </span>
+<span *ngFor="let suggestion of suggestions">{{ suggestion }}</span>
 </div>
 
 <div>
-    <span *ngFor="let g of '1,2,3,4,5,6'.split(',')">
-        {{g}}<input type="checkbox" id="{{g}}" [checked]="selectedGrades.includes(g)" (click)="toggleGrade(g)">
-    </span>
+<span *ngFor="let s of availableSubjects">
+    {{s.name}}<input type="checkbox" id="{{s.id}}" [checked]="selectedSubjects.includes(s.id)" (click)="toggleSubject(s)">
+</span>
 </div>
 
 <div>
-    <span *ngFor="let t of ['DOC', 'WEB']">
-        {{t}}<input type="checkbox" id="{{t}}" [checked]="selectedType == t" (click)="setType(t)">
-    </span>
+<span *ngFor="let g of '1,2,3,4,5,6'.split(',')">
+    {{g}}<input type="checkbox" id="{{g}}" [checked]="selectedGrades.includes(g)" (click)="toggleGrade(g)">
+</span>
+</div>
+
+<div>
+<span *ngFor="let t of ['DOC', 'WEB']">
+    {{t}}<input type="checkbox" id="{{t}}" [checked]="selectedType == t" (click)="setType(t)">
+</span>
+</div>
+
 </div>

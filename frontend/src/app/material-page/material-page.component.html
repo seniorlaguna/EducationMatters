@@ -19,7 +19,8 @@
             <span id="subjectGradeInformation">{{material.subjects.join(",") || "Alle Fächer"}} • Klasse
                 {{material.grades.join(",")}}</span>
             <ul id="tags">
-                <li *ngFor="let tag of material?.tags">#{{tag}}</li>
+                <li *ngFor="let tag of material?.tags">
+                    <a href="/search?tags={{ tag }}">#{{ tag }}</a></li>
             </ul>
             <p id="description">{{material.description}}</p>
         </div>

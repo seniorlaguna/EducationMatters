@@ -9,6 +9,11 @@ nav > ul {
     column-gap: 8px;
 }
 
+nav > ul > li:first-child {
+    margin-right: 24px;
+    list-style-type: none;
+}
+
 nav > ul > li {
     list-style-type: none;
 }

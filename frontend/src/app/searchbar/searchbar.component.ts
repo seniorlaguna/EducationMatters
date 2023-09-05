@@ -8,6 +8,8 @@ import { ApiService, EdumaSubject } from '../api.service';
 })
 export class SearchbarComponent implements OnInit {
 
+  @Input() suggestions: string[] = []
+
   @Output() onTextChanged: EventEmitter<string> = new EventEmitter()
   @Output() onSubjectsChanged: EventEmitter<string[]> = new EventEmitter()
   @Output() onGradesChanged: EventEmitter<string[]> = new EventEmitter()
@@ -18,8 +20,7 @@ export class SearchbarComponent implements OnInit {
   availableSubjects: EdumaSubject[] = []
   selectedSubjects: string[] = []
   selectedGrades: string[] = []
-  selectedType: string = "" 
-
+  selectedType: string = ""
 
   constructor(private api: ApiService) {}
 

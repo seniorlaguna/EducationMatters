@@ -5,7 +5,7 @@
         <a href="/materials/{{material?.id}}"><h2>{{material?.name}}</h2></a>
         <span id="subjectGradeInformation">{{material?.subjects?.join(",") || "Alle Fächer"}} • Klasse {{material?.grades?.join(",")}}</span>
         <ul id="tags">
-            <li *ngFor="let tag of material?.tags">#{{tag}}</li>
+            <a *ngFor="let tag of material?.tags" href="/search?tags={{ tag }}">#{{tag}}</a>
         </ul>
         <p id="description">{{material?.description}}</p>
     </div>

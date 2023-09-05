@@ -9,6 +9,7 @@ import { ApiService, Material } from '../api.service';
 export class ResultsPageComponent implements OnInit {
 
   results: Material[] = []
+  suggestions: string[] = []
   
   constructor(private api: ApiService) {}
 
@@ -25,6 +26,9 @@ export class ResultsPageComponent implements OnInit {
     this.api.processSearchQuery(query)
     this.api.adjustSearchUrl()
     this.api.search()
+    this.api.complete(query).subscribe((suggestions) => {
+      this.suggestions = suggestions
+    })
   }
 
   onSubjectsChanged(subjects: string[]) {
@@ -41,7 +45,6 @@ export class ResultsPageComponent implements OnInit {
 
   onGetResults(materials: Material[]) {
     this.results = materials
-    console.log("GOT RESULTS", materials, this.results)
   }
 
   onTypeChanged(type: string) {
